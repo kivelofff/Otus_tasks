@@ -3,7 +3,9 @@ package com.otus.tasks.service;
 import com.otus.tasks.domain.Person;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PersonService {
     private List<Person> persons;
@@ -26,6 +28,15 @@ public class PersonService {
 
     public Person getPerson(int number) {
         return persons.get(number);
+    }
+
+    public Map<String, Double> getResults() {
+        Map<String, Double> results = new HashMap<>();
+        for (int i = 0; i < persons.size(); i++) {
+            Person currentPerson = persons.get(i);
+            results.put(currentPerson.getName() + " " + currentPerson.getSurname(), currentPerson.getResult());
+        }
+        return results;
     }
 
 

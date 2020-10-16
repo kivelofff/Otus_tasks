@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="CsvReader" class="com.otus.tasks.service.CsvReader">
+        <constructor-arg name="fileName" value="c:\\test\\test.csv"/>
+    </bean>
+
+    <bean id="PersonService" class="com.otus.tasks.service.PersonService">
+    </bean>
+
+    <bean id="TesterService" class="com.otus.tasks.service.TesterService">
+        <constructor-arg name="csvReader" ref="CsvReader"/>
+        <constructor-arg name="personService" ref="PersonService"/>
+    </bean>
+</beans>

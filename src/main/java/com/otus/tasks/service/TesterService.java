@@ -8,23 +8,23 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class TesterService {
     private PersonService personService;
     private CsvReader csvReader;
 
-    public TesterService() {
-        this.personService = new PersonService();
-        this.csvReader = new CsvReader("c:\\test\\test.csv");
+    public TesterService(PersonService personService, CsvReader csvReader) {
+        this.personService = personService;
+        this.csvReader = csvReader;
     }
 
     public void testParticipant (String surname, String name) throws IOException {
         int id = personService.addPerson(surname, name);
         List<Question> questions = csvReader.getQuestions();
-        String answer;
         Person person = personService.getPerson(id);
         double score = 0.0d;
-        for (int i = 0; i < questions.size()-1; i++) {
+        for (int i = 0; i < questions.size(); i++) {
             score += askQuestion(questions.get(i));
 
         }
@@ -34,7 +34,7 @@ public class TesterService {
     private double askQuestion(Question question) throws IOException {
         double result = 0.0d;
         ConsoleHelper.writeMessage(question.getQuestion());
-        for (int j = 1; j < question.getOptions().size(); j++) {
+        for (int j = 1; j < question.getOptions().size()+1; j++) {
             ConsoleHelper.writeMessage(j + " - " + question.getOptions().get(j-1));
         }
         String answer = ConsoleHelper.readMessage();
@@ -65,5 +65,12 @@ public class TesterService {
             }
         }
         return result;
+    }
+
+    public void printResults() {
+        Map<String, Double> results = personService.getResults();
+        for (Map.Entry<String, Double> result: results.entrySet()) {
+            ConsoleHelper.writeMessage(result.getKey() + ": " + result.getValue());
+        }
     }
 }
