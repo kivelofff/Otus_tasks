@@ -1,6 +1,9 @@
 package com.otus.tasks.service;
 
 import com.otus.tasks.domain.Question;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -8,11 +11,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class CsvReader {
     private String fileName;
-
-    public CsvReader(String fileName) {
+    @Autowired()
+    public CsvReader(@Value("${file.path}") String fileName) {
         this.fileName = fileName;
     }
 

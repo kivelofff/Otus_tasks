@@ -2,6 +2,7 @@ package com.otus.tasks.service;
 
 import com.otus.tasks.domain.Person;
 import com.otus.tasks.domain.Question;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class TesterService {
     private PersonService personService;
     private CsvReader csvReader;
