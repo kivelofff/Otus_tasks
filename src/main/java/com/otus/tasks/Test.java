@@ -22,8 +22,8 @@ import java.util.Locale;
 public class Test {
     private static Detector detector;
 
-    @Autowired
-    private static MessageSource messageSource;
+
+    private static MessageSource messageSource = getMessageSource();
 
     public static void main(String[] args) throws IOException {
 
@@ -35,10 +35,10 @@ public class Test {
             ConsoleHelper.writeMessage("wrong format, try again");
             username = ConsoleHelper.readMessage();
         }
-        String lang = getLanguage(username);
+        String lang = "ru";
         String hello;
-        if (lang == null) {lang = "en";}
-        hello = messageSource.getMessage("hello.user", new String[] {username}, new Locale("lang"));
+        if (lang == null) {lang = "ru";}
+        hello = messageSource.getMessage("hello.user", new String[] {username}, new Locale("ru", "RU"));
         System.out.println(hello);
 
         String[] nameAndSurname  = username.split(" ");
@@ -47,9 +47,9 @@ public class Test {
         testerService.printResults();
     }
 
-    public MessageSource getMessageSource() {
+    public static MessageSource getMessageSource() {
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
-        source.setBasename("/messages/message");
+        source.setBasename("/messages/messages");
         source.setDefaultEncoding("UTF-8");
         return source;
 
